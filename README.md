@@ -28,9 +28,12 @@ You must have redis installed and running on the default port:6379 (or configure
 5. Run  `bundle exec sidekiq`
 6. Visit `http://localhost:3000/messages/2`
 
-## Live comments example
+## Live Video Stream example
 
 1. Open two browsers with separate cookie spaces (like a regular session and an incognito session).
 2. Login as different people in each browser.
 3. Go to the same message.
-4. Add comments in either browser and see them appear real-time on the counterpart screen.
+4.Now you can see video from webcam laptop stream to every member in this room.
+
+##CUSTOM IS YOUR...
+You can custom it...
