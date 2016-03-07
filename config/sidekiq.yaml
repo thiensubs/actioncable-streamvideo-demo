@@ -1,0 +1,9 @@
+:concurrency: 25
+# :pidfile: ./tmp/pids/sidekiq.pid
+# :logfile: ./log/sidekiq.log
+:queues:
+  - default
+  - low_priority
+  - mailers
+  - [high_priority, 2]
+:daemon: false

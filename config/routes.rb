@@ -5,6 +5,6 @@ Rails.application.routes.draw do
   resources :messages do
     resources :comments
   end
-
+  resources :cams
   root 'examples#index'
 end
