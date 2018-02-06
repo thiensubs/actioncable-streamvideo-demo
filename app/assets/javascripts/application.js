@@ -12,6 +12,14 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require chartkick
 //= require turbolinks
 //= require channels
 //= require_tree .
+var dsource;
+$(document).on('turbolinks:load',function(){
+  dsource = [
+    {name: "Sample", data: {"1": 20, "2": 4}}
+  ]
+  new Chartkick.LineChart("chart_live", dsource)
+});

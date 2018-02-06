@@ -32,16 +32,17 @@ App.comments = App.cable.subscriptions.create "CommentsChannel",
 window.addEventListener 'DOMContentLoaded', (->
   # Grab elements, create settings, etc.
   canvas = document.getElementById('canvas')
-  context = canvas.getContext('2d')
-  video = document.getElementById('video')
-  videoObj = 'video': true
+  if canvas
+    context = canvas.getContext('2d')
+    video = document.getElementById('video')
+    videoObj = 'video': true
 
   errBack = (error) ->
     console.log 'Video capture error: ', error.code
     return
 
   # Put video listeners into place
-  if navigator.getUserMedia
+  if canvas && navigator && navigator.getUserMedia
     # Standard
     navigator.getUserMedia videoObj, ((stream) ->
       video.src = stream
@@ -77,38 +78,39 @@ dataURLtoBlob = (dataURL) ->
   new Blob([ new Uint8Array(array) ], type: 'image/png')
 $(document).ready ->
   canvas = document.getElementById('canvas')
-  context = canvas.getContext('2d')
-  video = document.getElementById('video')
-  videoObj = 'video': true
-  i = undefined
+  if canvas
+    context = canvas.getContext('2d')
+    video = document.getElementById('video')
+    videoObj = 'video': true
+    i = undefined
 
-  video.addEventListener 'play', (->
-    i = window.setInterval((->
-      context.drawImage(video, 0, 0, 640, 480)
-      file = dataURLtoBlob(canvas.toDataURL())
-      # Create new form data
-      fd = new FormData
-      # Append our Canvas image file to the form data
-      fd.append 'image', file
-      $.ajax
-        type: 'POST'
-        url: '/cams'
-        data: fd
-        processData: false
-        contentType: false
+    video.addEventListener 'play', (->
+      i = window.setInterval((->
+        context.drawImage(video, 0, 0, 640, 480)
+        file = dataURLtoBlob(canvas.toDataURL())
+        # Create new form data
+        fd = new FormData
+        # Append our Canvas image file to the form data
+        fd.append 'image', file
+        $.ajax
+          type: 'POST'
+          url: '/cams'
+          data: fd
+          processData: false
+          contentType: false
 
+        return
+      ), 500)
       return
-    ), 500)
-    return
-  ), false
-  video.addEventListener 'pause', (->
-    window.clearInterval i
-    return
-  ), false
-  video.addEventListener 'ended', (->
-    clearInterval i
-    return
-  ), false
+    ), false
+    video.addEventListener 'pause', (->
+      window.clearInterval i
+      return
+    ), false
+    video.addEventListener 'ended', (->
+      clearInterval i
+      return
+    ), false
 
   $('#snap').click ->
     canvas = document.getElementById('canvas')

@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+
   resource  :session
   resources :examples
 
@@ -7,4 +8,6 @@ Rails.application.routes.draw do
   end
   resources :cams
   root 'examples#index'
+  resources :charts
+  mount ActionCable.server => '/cable'
 end
