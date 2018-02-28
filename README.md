@@ -1,6 +1,8 @@
 # Action Cable Examples
 
 A collection of examples showcasing the capabilities of Action Cable.
+*  `Live Stream Video (Or Image).`
+*  `Chart Live Data.`
 
 ## Dependencies
 
