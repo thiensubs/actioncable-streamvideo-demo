@@ -13,7 +13,7 @@ gem 'coffee-rails', github: "rails/coffee-rails"
 gem 'jquery-rails'
 gem 'turbolinks', '~> 5'
 gem 'jbuilder', '~> 2.0'
-
+gem 'nenv'
 group :development, :test do
   gem 'byebug'
 end
@@ -26,3 +26,4 @@ group :development do
 end
 gem 'sidekiq'
 gem 'whenever', require: false
+gem 'anycable-rails'
