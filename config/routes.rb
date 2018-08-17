@@ -9,5 +9,5 @@ Rails.application.routes.draw do
   resources :cams
   root 'examples#index'
   resources :charts
-  mount ActionCable.server => '/cable'
+  # mount ActionCable.server => '/cable'
 end

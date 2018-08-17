@@ -1,5 +1,5 @@
 # Load the Rails application.
-require File.expand_path('../application', __FILE__)
-
+require_relative 'application'
+# require 'anycable-rails' if Nenv.cable_url?
 # Initialize the Rails application.
 Rails.application.initialize!

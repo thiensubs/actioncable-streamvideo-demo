@@ -27,8 +27,12 @@ You must have redis installed and running on the default port:6379 (or configure
 2. Open up a separate terminal and run: `./bin/rails server`
 3. One more terminal to run redis server: `redis-server`
 4. One more terminal Run `bundle exec sidekiq`
-5. One more terminal Run Run `bundle exec puma -p 28080 cable/config.ru`
-6. Visit `http://localhost:3000/messages`
+5. One more terminal Run Run `./bin/anycable`
+6. One more terminal Run Run `anycable-go -addr=0.0.0.0:28080`
+  
+    NOTE: You can use anycable-go or anycable-erlang, I choiced: anycable-go, So install follow that: https://github.com/anycable/anycable-go
+
+7. Visit `http://localhost:3000/messages`
 
 
 ## Live Video Stream example
