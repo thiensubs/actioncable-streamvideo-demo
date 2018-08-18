@@ -9,11 +9,9 @@ App.comments = App.cable.subscriptions.create "CommentsChannel",
     , 1000
 
   received: (data) ->
-    console.log data
-    # if data is 'somefilename.png'
     $('#ima').attr( 'src', "/cam/#{data}.png")
-    # else
-    #   @collection().append(data.comment) unless @userIsCurrentUser(data.comment)
+    if typeof(data) == 'object'
+      @collection().append(data.comment) unless @userIsCurrentUser(data.comment)
 
   userIsCurrentUser: (comment) ->
     $(comment).attr('data-user-id') is $('meta[name=current-user]').attr('id')
@@ -52,10 +50,11 @@ window.addEventListener 'DOMContentLoaded', (->
   )
 
   navigator.mediaDevices.getUserMedia(
-    audio: true
+    audio: false
     video: true).then((stream) ->
     video = document.querySelector('video')
     # Older browsers may not have srcObject
+    console.log stream
     if 'srcObject' of video
       video.srcObject = stream
     else

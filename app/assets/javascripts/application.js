@@ -21,5 +21,7 @@ $(document).on('turbolinks:load',function(){
   dsource = [
     {name: "Sample", data: {"1": 20, "2": 4}}
   ]
-  new Chartkick.LineChart("chart_live", dsource)
+  if ($('#chart_live').length) {
+    new Chartkick.LineChart("chart_live", dsource) 
+  }
 });
