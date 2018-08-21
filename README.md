@@ -32,7 +32,7 @@ You must have redis installed and running on the default port:6379 (or configure
   
     NOTE: You can use anycable-go or anycable-erlang, I choiced: anycable-go, So install follow that: https://github.com/anycable/anycable-go
 
-7. Visit `http://localhost:3000/messages`
+7. Visit `http://localhost:3000/charts`
 
 
 ## Live Video Stream example
