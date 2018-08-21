@@ -29,46 +29,47 @@ App.comments = App.cable.subscriptions.create "CommentsChannel",
 
 
 window.addEventListener 'DOMContentLoaded', (->
-  if navigator.mediaDevices == undefined
-    navigator.mediaDevices = {}
-  # Some browsers partially implement mediaDevices. We can't just assign an object
-  # with getUserMedia as it would overwrite existing properties.
-  # Here, we will just add the getUserMedia property if it's missing.
-  if navigator.mediaDevices.getUserMedia == undefined
+  canvas = document.getElementById('canvas')
+  if canvas? && canvas.length
+    if navigator.mediaDevices == undefined
+      navigator.mediaDevices = {}
+    # Some browsers partially implement mediaDevices. We can't just assign an object
+    # with getUserMedia as it would overwrite existing properties.
+    # Here, we will just add the getUserMedia property if it's missing.
+    if navigator.mediaDevices.getUserMedia == undefined
+      navigator.mediaDevices.getUserMedia = (constraints) ->
+        # First get ahold of the legacy getUserMedia, if present
+        getUserMedia = navigator.webkitGetUserMedia or navigator.mozGetUserMedia
+        # Some browsers just don't implement it - return a rejected promise with an error
+        # to keep a consistent interface
+        if !getUserMedia
+          return Promise.reject(new Error('getUserMedia is not implemented in this browser'))
+        # Otherwise, wrap the call to the old navigator.getUserMedia with a Promise
+        new Promise((resolve, reject) ->
+          getUserMedia.call navigator, constraints, resolve, reject
+          return
+    )
 
-    navigator.mediaDevices.getUserMedia = (constraints) ->
-      # First get ahold of the legacy getUserMedia, if present
-      getUserMedia = navigator.webkitGetUserMedia or navigator.mozGetUserMedia
-      # Some browsers just don't implement it - return a rejected promise with an error
-      # to keep a consistent interface
-      if !getUserMedia
-        return Promise.reject(new Error('getUserMedia is not implemented in this browser'))
-      # Otherwise, wrap the call to the old navigator.getUserMedia with a Promise
-      new Promise((resolve, reject) ->
-        getUserMedia.call navigator, constraints, resolve, reject
+    navigator.mediaDevices.getUserMedia(
+      audio: false
+      video: true).then((stream) ->
+      video = document.querySelector('video')
+      # Older browsers may not have srcObject
+      console.log stream
+      if 'srcObject' of video
+        video.srcObject = stream
+      else
+        # Avoid using this in new browsers, as it is going away.
+        video.src = window.URL.createObjectURL(stream)
+
+      video.onloadedmetadata = (e) ->
+        video.play()
         return
-  )
 
-  navigator.mediaDevices.getUserMedia(
-    audio: false
-    video: true).then((stream) ->
-    video = document.querySelector('video')
-    # Older browsers may not have srcObject
-    console.log stream
-    if 'srcObject' of video
-      video.srcObject = stream
-    else
-      # Avoid using this in new browsers, as it is going away.
-      video.src = window.URL.createObjectURL(stream)
-
-    video.onloadedmetadata = (e) ->
-      video.play()
       return
-
-    return
-  ).catch (err) ->
-    console.log err.name + ': ' + err.message
-    return
+    ).catch (err) ->
+      console.log err.name + ': ' + err.message
+      return
 ), false
 
 dataURLtoBlob = (dataURL) ->
@@ -84,7 +85,7 @@ dataURLtoBlob = (dataURL) ->
   new Blob([ new Uint8Array(array) ], type: 'image/png')
 $(document).ready ->
   canvas = document.getElementById('canvas')
-  if canvas
+  if canvas? && canvas.length
     context = canvas.getContext('2d')
     video = document.getElementById('video')
     videoObj = 'video': true

@@ -4,7 +4,7 @@ task :push_data => :environment do
   while true
     # || input !='\q'
     ChartJob.perform_later()
-    sleep 2
+    sleep 1
     # input = STDIN.gets
   end
   

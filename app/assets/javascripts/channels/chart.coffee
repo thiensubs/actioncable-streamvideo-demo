@@ -24,8 +24,7 @@ App.chart = App.cable.subscriptions.create "ChartChannel",
       next_key = parseInt(last_key) + 1
       dsource[0].data["#{next_key}"] = data.data[0]
       # console.log @collection
-      chart = Chartkick.charts["chart_live"]
-      chart.updateData(dsource)
+      chart.series[0].addPoint(data.data[0]);
     # Called when there's incoming data on the websocket for this channel
 
   demo: ->

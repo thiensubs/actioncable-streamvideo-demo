@@ -17,11 +17,14 @@
 //= require channels
 //= require_tree .
 var dsource;
+var chart;
 $(document).on('turbolinks:load',function(){
-  dsource = [
-    {name: "Sample", data: {"1": 20, "2": 4}}
-  ]
+  dsource = [{
+          data: [29.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4, 194.1, 95.6, 54.4]
+      }]
   if ($('#chart_live').length) {
-    new Chartkick.LineChart("chart_live", dsource) 
+    chart = Highcharts.chart('chart_live', {
+      series: dsource
+    });
   }
 });
