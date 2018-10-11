@@ -47,7 +47,7 @@ You must have redis installed and running on the default port:6379 (or configure
 1. Open two browsers with separate cookie spaces (like a regular session and an incognito session).
 2. Login as different people in each browser.
 3. Click Chart with live data.
-4. Now you can see video from webcam laptop stream to every member in this room.
+4. Now you can see the chart stream to every member in this room.
 
 ##CUSTOM IS YOUR...
 You can custom it...
