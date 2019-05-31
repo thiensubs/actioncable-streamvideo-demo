@@ -27,9 +27,14 @@ You must have redis installed and running on the default port:6379 (or configure
 2. Open up a separate terminal and run: `./bin/rails server`
 3. One more terminal to run redis server: `redis-server`
 4. One more terminal Run `bundle exec sidekiq`
-5. One more terminal Run Run `./bin/anycable`
-6. One more terminal Run Run `anycable-go -addr=0.0.0.0:28080`
-  
+5. One more terminal Run Run `anycable`
+6. One more terminal Run Run `anycable-go --host=0.0.0.0 --port=28080 \
+              --path=/cable \
+              --rpc_host=0.0.0.0:50051 \
+              --redis_url=redis://localhost:6379/2 \
+              --redis_channel=__anycable__ \
+              --debug`
+
     NOTE: You can use anycable-go or anycable-erlang, I choiced: anycable-go, So install follow that: https://github.com/anycable/anycable-go
 
 7. Visit `http://localhost:3000/`
