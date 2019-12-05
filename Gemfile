@@ -5,7 +5,7 @@ gem 'sprockets-rails', github: "rails/sprockets-rails"
 
 gem 'sqlite3'
 gem 'redis', '~> 3.0'
-gem 'puma', '~> 3.7'
+gem 'puma', '~> 4.3'
 
 gem 'sass-rails', '~> 5.0'
 gem 'uglifier', '>= 1.3.0'
