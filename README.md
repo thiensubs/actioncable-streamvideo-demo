@@ -58,6 +58,7 @@ You must have redis installed and running on the default port:6379 (or configure
  - [ ]  Find the way sending image via WebSocket (replace current POST).
  - [ ] Upgrade Rails. (target is lasted 6)
  - [ ] Upgrade Ruby. (target is 3)
+ - [ ] Add End to End encrypted.
 
 ##CUSTOM IS YOUR...
 You can custom it...
